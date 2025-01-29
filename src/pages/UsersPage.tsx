@@ -1,9 +1,11 @@
 import  {FC} from 'react';
+import Users from '../Users/Users';
 
 const UsersPage:FC = () => {
     return (
         <div>
-            UsersPage
+            users page
+            <Users/>
         </div>
     );
 };

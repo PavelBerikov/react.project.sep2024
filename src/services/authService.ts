@@ -4,7 +4,7 @@ import {axiosInstance} from "./axiosService.tsx";
 
 
 export const login = async (auth:IAuth):Promise<ILoginUserResponse> => {
-    const {data:IUtherWithTokens} = await axiosInstance.post<ILoginUserResponse>('auth/login', auth);
-    console.log(IUtherWithTokens);
-    return IUtherWithTokens;
+    const {data} = await axiosInstance.post<ILoginUserResponse>('auth/login', auth);
+    localStorage.setItem("user", JSON.stringify(data))
+    return data;
 }

@@ -1,9 +1,10 @@
 import {FC} from 'react';
+import Recipes from '../components/Recipes/Recipes';
 
 const RecipesPage:FC = () => {
     return (
         <div>
-            RecipesPage
+            <Recipes/>
         </div>
     );
 };
