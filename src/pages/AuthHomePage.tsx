@@ -6,7 +6,6 @@ const AuthHomePage:FC = () => {
     return (
         <div>
             <Menu/>
-            auth home
             <Outlet/>
         </div>
     );

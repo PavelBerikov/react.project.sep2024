@@ -30,6 +30,7 @@ export const usersSlice = createSlice({
     reducers:{},
     extraReducers: builder => {
         builder.addCase(getUsers.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.users = action.payload.users
         })
     }
