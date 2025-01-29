@@ -8,12 +8,12 @@ import RecipesDetailsPage from "../pages/RecipesDetailsPage.tsx";
 
 export const router= createBrowserRouter([
     {path: '/', element: <MainLayout/>, children: [
-            {path: '/login', element: <LoginPage/>},
             {path: '/users', element: <UsersPage/>, children:[
                     {path:'users/:id', element: <UserDetailsPage/>}
                 ]},
             {path: '/recipes', element: <RecipesPage/>, children: [
                     {path: 'recipes/:id', element: <RecipesDetailsPage/>}
                 ]}
-        ]}
+        ]},
+    {path: '/login', element: <LoginPage/>}
 ]);

@@ -1,34 +1,41 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {IAuth} from "../../../interfaces/authInterface.ts";
+import {login} from "../../../services/authService.ts";
+import {ILoginUserResponse} from "../../../interfaces/LoginUserResponse.ts";
+
+
 type initialStateType = {
-    username: string | null,
-    password: string | null
+    loginUser: ILoginUserResponse | null
 }
+
 const initialState: initialStateType = {
-    username: null,
-    password: null
+    loginUser: null
 };
-createAsyncThunk(
-    'authSlice/login',
-    async (auth, thunkAPI) => {
+
+const loginUser = createAsyncThunk(
+    'authSlice/loginUser',
+    async (auth: IAuth, thunkAPI) => {
         try {
-            await
+            const user = await login(auth);
+            return thunkAPI.fulfillWithValue(user)
+        }catch (e) {
+            console.log(e)
+            return thunkAPI.rejectWithValue('some err')
         }
     }
-)
+);
 export const authSlice = createSlice({
     name: 'authSlice',
     initialState: initialState,
-    reducers:{
-        loginUser: (state, action: PayloadAction<IAuth>) => {
-            state.username = action.payload.username;
-            state.password = action.payload.password;
-            console.log(state)
-        },
-
+    reducers:{},
+    extraReducers: (builder) => {
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.loginUser = action.payload
+            console.log(action.payload.accessToken)
+        });
     }
 });
 
 export const authSliceActions = {
-    ...authSlice.actions
+    ...authSlice.actions, loginUser
 }

@@ -1,12 +1,10 @@
-import axios from "axios";
-import {IAuth} from "../interfaces/authInterface.ts";
 import {ILoginUserResponse} from "../interfaces/LoginUserResponse.ts";
+import {IAuth} from "../interfaces/authInterface.ts";
+import {axiosInstance} from "./axiosService.tsx";
 
-const axiosInstance = axios.create({
-    baseURL: 'https://dummyjson.com/',
-    headers:{}
-});
-export const login = async (auth: IAuth): Promise<ILoginUserResponse> => {
-    const {data} = await axiosInstance.post('auth/login', auth).then(response => response.data);
-    return data
+
+export const login = async (auth:IAuth):Promise<ILoginUserResponse> => {
+    const {data:IUtherWithTokens} = await axiosInstance.post<ILoginUserResponse>('auth/login', auth);
+    console.log(IUtherWithTokens);
+    return IUtherWithTokens;
 }
