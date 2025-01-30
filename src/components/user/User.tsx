@@ -1,13 +1,17 @@
 import {FC} from 'react';
 import {IUser} from "../../interfaces/userInterface.ts";
+import {useNavigate} from "react-router-dom";
 
 type PropsType = {
     user: IUser;
 };
 
 const User: FC<PropsType> = ({user}) => {
+    const navigate = useNavigate();
     return (
-        <div>
+        <div onClick={() => {
+            navigate(`/auth/users/details/${user.id}`)
+        }}>
             {user.id} - {user.firstName}
         </div>
     );

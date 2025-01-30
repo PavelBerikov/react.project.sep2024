@@ -1,5 +1,5 @@
 import  {FC} from 'react';
-import Users from '../components/users/Users';
+import Users from "../components/users/Users.tsx";
 
 
 const UsersPage:FC = () => {

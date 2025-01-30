@@ -5,10 +5,6 @@
 }
 .recipeCard{
 
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
 }
 .blur{
     filter: blur(10px);

@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {IRecipe} from "../../../interfaces/recipesInterface.ts";
 import {loadRecipeByID, loadRecipes} from "../../../services/recipesService.ts";
+import { loadSearchRecipes } from "../../../services/searchService.ts";
 
 type initialStateType = {
     recipes: IRecipe[],
@@ -36,6 +37,18 @@ const getRecipeById = createAsyncThunk(
         }
     }
 )
+const getRecipeBySearch = createAsyncThunk(
+    'recipesSlice/getRecipeBySearch',
+    async (word: string, thunkAPI) => {
+        try {
+            const recipes = await loadSearchRecipes(word);
+            return thunkAPI.fulfillWithValue(recipes)
+        }catch (e) {
+            console.log(e);
+            return thunkAPI.rejectWithValue('some error')
+        }
+    }
+)
 export const recipesSlice = createSlice({
     name: 'recipesSlice',
     initialState: initialState,
@@ -48,12 +61,15 @@ export const recipesSlice = createSlice({
         builder.addCase(getRecipes.fulfilled, (state, action) => {
             state.recipes = action.payload.recipes
         })
-            .addCase(getRecipeById.fulfilled, (_, action) => {
-                console.log(action.payload)
+            .addCase(getRecipeById.fulfilled, (state    , action) => {
+                state.recipe = action.payload
+            })
+            .addCase(getRecipeBySearch.fulfilled, (state    , action) => {
+                state.recipes =  action.payload.recipes
             })
     }
 });
 
 export const recipesSliceActions = {
-    ...recipesSlice.actions, getRecipes, loadRecipeByID
+    ...recipesSlice.actions, getRecipes, getRecipeById, getRecipeBySearch
 }

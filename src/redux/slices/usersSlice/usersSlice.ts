@@ -8,8 +8,6 @@ type initialStateType = {
 }
 const initialState:initialStateType = {
     users: [],
-
-
 }
 
 const getUsers = createAsyncThunk(

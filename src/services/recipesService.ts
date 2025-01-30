@@ -7,15 +7,7 @@ export const loadRecipes =async ():Promise<IRecipesResponse> => {
 }
 
 export const loadRecipeByID = async (id: string):Promise<IRecipe | null> => {
-    try {
-        const response = await axiosInstance.get(`recipes/${id}`);
-        console.log("Полный ответ API:", response); // Логируем весь объект ответа
-        return response.data;
-    } catch (error) {
-        console.error("Ошибка загрузки рецепта:", error);
-        return null;
-    }
-    // const recipe = await axiosInstance.get<IRecipe>('recipes/'+id).then(response => response.data);
-    // console.log(recipe);
-    // return recipe
+     const recipe = await axiosInstance.get<IRecipe>('recipes/'+id).then(response => response.data);
+     console.log(recipe);
+     return recipe
 }

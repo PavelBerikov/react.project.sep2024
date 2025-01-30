@@ -8,22 +8,26 @@ import './recipes.css'
 
 const Recipes:FC = () => {
     const dispatch = useAppDispatch();
-    const recipes = useAppSelector(state => state.recipesSlice);
-    const auth = useAppSelector(state => state.authSlice);
-    const filter = recipes.recipes.filter(value => value.id <= 6);
+    const {recipes} = useAppSelector(state => state.recipesSlice);
+    const {loginUser} = useAppSelector(state => state.authSlice);
+    const filter = recipes.filter(value => value.id <= 6);
+
     useEffect(() => {
-        dispatch(recipesSliceActions.getRecipes())
+      dispatch(recipesSliceActions.getRecipes())
     }, [dispatch]);
     return (
         <section className={'recipes'}>
             {
-                !auth.loginUser&&
+                !loginUser&&
                 filter.map(recipe => <Recipe key={recipe.id} recipe={recipe}/>)
             }
             {
-                auth.loginUser&&
-                recipes.recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe}/>)
+
+                loginUser&&
+                recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe}/>)
+
             }
+
         </section>
     );
 };
