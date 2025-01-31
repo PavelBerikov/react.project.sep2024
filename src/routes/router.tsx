@@ -17,9 +17,9 @@ export const router= createBrowserRouter([
     {path:'/auth', element: <AuthHomePage/>, children:[
             {path: 'recipes', element: <RecipesPage/>},
             {path: 'users', element: <UsersPage/>},
-            {path:'users/details/:id', element: <UserDetailsPage/>},
             {path:'recipes/search', element: <SearchPage/>}
         ]},
+    {path:'users/details/:id', element: <UserDetailsPage/>},
     {path:'recipes/details/:id', element: <RecipesDetailsPage/>},
     {path: '/recipe/searchByTag/:tag', element: <SearchByTagPage/>}
 

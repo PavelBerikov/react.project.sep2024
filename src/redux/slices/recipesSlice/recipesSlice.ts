@@ -15,9 +15,9 @@ const initialState:initialStateType = {
 };
 const getRecipes = createAsyncThunk(
     'authSlice/getRecipes',
-    async (_, thunkAPI) => {
+    async ({ limit, skip }: { limit: number; skip: number }, thunkAPI) => {
         try {
-            const recipes = await loadRecipes()
+            const recipes = await loadRecipes(limit, skip)
             return thunkAPI.fulfillWithValue(recipes)
         }catch (e){
             console.log(e)

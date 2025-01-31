@@ -1,13 +1,15 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import { IUser } from "../../../interfaces/userInterface";
-import { loadUsers } from "../../../services/usersService";
+import {loadUser, loadUsers} from "../../../services/usersService";
 
 type initialStateType = {
     users: IUser[],
+    user: IUser | null
 
 }
 const initialState:initialStateType = {
     users: [],
+    user: null
 }
 
 const getUsers = createAsyncThunk(
@@ -22,6 +24,18 @@ const getUsers = createAsyncThunk(
         }
     }
 );
+const getUser = createAsyncThunk(
+    'usersSlice/getUser',
+    async (id:string, thunkAPI) => {
+        try {
+            const user = await loadUser(id);
+            return thunkAPI.fulfillWithValue(user)
+        }catch (e) {
+            console.log(e);
+            return thunkAPI.rejectWithValue('some error')
+        }
+    }
+);
 export const usersSlice = createSlice({
     name: 'usersSlice',
     initialState: initialState,
@@ -31,9 +45,13 @@ export const usersSlice = createSlice({
             console.log(action.payload)
             state.users = action.payload.users
         })
+            .addCase(getUser.fulfilled, (state, action) => {
+                state.user = action.payload
+            })
+
     }
 });
 
 export const usersSliceActions = {
-    ...usersSlice.actions, getUsers
+    ...usersSlice.actions, getUsers, getUser
 }

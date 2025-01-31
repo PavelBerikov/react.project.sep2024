@@ -10,7 +10,7 @@ const User: FC<PropsType> = ({user}) => {
     const navigate = useNavigate();
     return (
         <div onClick={() => {
-            navigate(`/auth/users/details/${user.id}`)
+            navigate(`/users/details/${user.id}`)
         }}>
             {user.id} - {user.firstName}
         </div>

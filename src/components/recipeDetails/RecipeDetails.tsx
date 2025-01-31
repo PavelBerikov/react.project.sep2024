@@ -2,7 +2,7 @@ import {FC, useEffect} from 'react';
 import {useAppSelector} from "../../hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../hooks/useAppDispatch.tsx";
 import {recipesSliceActions} from "../../redux/slices/recipesSlice/recipesSlice.ts";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const RecipeDetails:FC = () => {
     const {recipe} = useAppSelector(state => state.recipesSlice);
@@ -12,12 +12,12 @@ const RecipeDetails:FC = () => {
         if (params.id){
             dispatch(recipesSliceActions.getRecipeById(params.id))
         }
-    }, [params.id]);
+    }, [params.id, dispatch]);
     return (
         <div>
             {
                 recipe &&
-                <div>{recipe.id} - {recipe.userId}</div>
+                <div>{recipe.id} - <Link to={''}>{recipe.userId}</Link></div>
             }
         </div>
     );

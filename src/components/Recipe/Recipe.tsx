@@ -20,7 +20,7 @@ const Recipe: FC<PropsType> = ({recipe}) => {
             <div onClick={() => {
                 dispatch(recipesSliceActions.setId(recipe.id))
                 navigate(`/recipes/details/${recipe.id}`)
-            }}>{recipe.name}</div>
+            }}>{recipe.id} -    {recipe.name}</div>
             {
                 recipe.tags.map((tag, index) => <Tag key={index} tag={tag}/>)
             }
